@@ -1124,6 +1124,9 @@ class MixxxCore(Feature):
 
                    "src/library/trackloader.cpp",
 
+                   "src/network/requestid.cpp",
+                   "src/network/requestreplymanager.cpp",
+
                    "src/widget/wwaveformviewer.cpp",
 
                    "src/waveform/sharedglcontext.cpp",
