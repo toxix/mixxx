@@ -543,6 +543,7 @@ add_library(mixxx-lib STATIC EXCLUDE_FROM_ALL
   src/util/encodedurl.cpp
   src/util/experiment.cpp
   src/util/file.cpp
+  src/util/fingerprint.cpp
   src/util/indexrange.cpp
   src/util/logger.cpp
   src/util/logging.cpp
