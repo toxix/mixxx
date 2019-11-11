@@ -5,6 +5,10 @@
 #include "library/trackcollection.h"
 #include "library/externaltrackcollection.h"
 
+#if defined(__AOIDE__)
+#include "library/aoide/trackcollection.h"
+#endif
+
 #include "sources/soundsourceproxy.h"
 #include "util/db/dbconnectionpooled.h"
 #include "util/logger.h"
@@ -47,7 +51,9 @@ TrackCollectionManager::TrackCollectionManager(
     if (deleteTrackFn) {
         kLogger.info() << "External collections are not available in test mode";
     } else {
-        // TODO: Add external collections
+#if defined(__AOIDE__)
+        m_externalCollections.append(new mixxx::aoide::TrackCollection(this, pConfig));
+#endif
     }
 
     kLogger.info() << "Connecting external collections";

@@ -59,6 +59,9 @@ available_features = [features.Mad,
                       features.Battery,
                       features.QtKeychain,
 
+                      # Experimental
+                      features.Aoide,
+
                       # "Features" of dubious quality
                       features.PerfTools,
                       features.AsmLib,

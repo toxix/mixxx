@@ -1,5 +1,4 @@
-#ifndef MIXXX_UTIL_LOGGING_H
-#define MIXXX_UTIL_LOGGING_H
+#pragma once
 
 #include <QDir>
 
@@ -33,6 +32,7 @@ class Logging {
                            bool debugAssertBreak);
     static void shutdown();
 
+    static void write(const QByteArray& message);
     static void flushLogFile();
 
     static bool enabled(LogLevel logLevel) {
@@ -56,5 +56,3 @@ class Logging {
 };
 
 }  // namespace mixxx
-
-#endif /* MIXXX_UTIL_LOGGING_H */

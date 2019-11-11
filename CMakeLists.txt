@@ -2107,3 +2107,41 @@ if(NOT OPTIMIZE STREQUAL "off")
     endif()
   endif()
 endif()
+
+#
+# aoide
+#
+option(AOIDE "aoide - External music library (experimental)" OFF)
+if(AOIDE)
+  target_compile_definitions(mixxx-lib PUBLIC __AOIDE__)
+  target_compile_definitions(mixxx-lib PUBLIC __EXTRA_METADATA__)
+  target_sources(mixxx-lib PRIVATE
+    src/library/aoide/domain/collection.cpp
+    src/library/aoide/domain/entity.cpp
+    src/library/aoide/domain/json.cpp
+    src/library/aoide/domain/marker.cpp
+    src/library/aoide/domain/playlist.cpp
+    src/library/aoide/domain/tag.cpp
+    src/library/aoide/domain/track.cpp
+    src/library/aoide/agent.cpp
+    src/library/aoide/coverartdelegate.cpp
+    src/library/aoide/gateway.cpp
+    src/library/aoide/libraryfeature.cpp
+    src/library/aoide/settings.cpp
+    src/library/aoide/subsystem.cpp
+    src/library/aoide/tag/hashtagcommentstagger.cpp
+    src/library/aoide/tag/multigenretagger.cpp
+    src/library/aoide/task/resolvetracksbyurltask.cpp
+    src/library/aoide/task/searchtrackstask.cpp
+    src/library/aoide/trackcollection.cpp
+    src/library/aoide/trackexporter.cpp
+    src/library/aoide/trackreplacementscheduler.cpp
+    src/library/aoide/tracktablemodel.cpp
+    src/library/aoide/util.cpp
+  )
+  target_sources(mixxx-test PRIVATE
+    src/test/aoide_hashtagcommentstagger_test.cpp
+    src/test/aoide_multigenretagger_test.cpp
+    src/test/aoide_trackexporter_test.cpp
+  )
+endif()

@@ -217,6 +217,11 @@ void Logging::shutdown() {
 }
 
 // static
+void Logging::write(const QByteArray& message) {
+    writeToLog(message, true, false);
+}
+
+// static
 void Logging::flushLogFile() {
     QMutexLocker locker(&g_mutexLogfile);
     if (g_logfile.isOpen()) {

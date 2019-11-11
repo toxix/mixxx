@@ -707,7 +707,7 @@ class LiveBroadcasting(Feature):
             # https://bugs.launchpad.net/mixxx/+bug/1833225
             if not conf.CheckForPKG('shout', '2.4.4'):
                 self.INTERNAL_LINK = True
- 
+
         if not self.INTERNAL_LINK:
             self.INTERNAL_LINK = not conf.CheckLib(['libshout', 'shout'])
 
@@ -1226,3 +1226,46 @@ class QtKeychain(Feature):
         if not conf.CheckLib('qt5keychain'):
             raise Exception("Could not find qt5keychain.")
         build.env.Append(CPPDEFINES='__QTKEYCHAIN__')
+
+class Aoide(Feature):
+    def description(self):
+        return "aoide - external music library (experimental)"
+
+    def enabled(self, build):
+        build.flags['aoide'] = util.get_flags(build.env, 'aoide', 0)
+        if int(build.flags['aoide']):
+            return True
+        return False
+
+    def add_options(self, build, vars):
+        vars.Add('aoide', 'Set to 1 to enable integration of the external aoide music library', 0)
+
+    def configure(self, build, conf):
+        if not self.enabled(build):
+            return
+        build.env.Append(CPPDEFINES='__AOIDE__')
+        build.env.Append(CPPDEFINES='__EXTRA_METADATA__')
+
+    def sources(self, build):
+        return ['src/library/aoide/domain/collection.cpp',
+                'src/library/aoide/domain/entity.cpp',
+                'src/library/aoide/domain/json.cpp',
+                'src/library/aoide/domain/marker.cpp',
+                'src/library/aoide/domain/playlist.cpp',
+                'src/library/aoide/domain/tag.cpp',
+                'src/library/aoide/domain/track.cpp',
+                'src/library/aoide/agent.cpp',
+                'src/library/aoide/coverartdelegate.cpp',
+                'src/library/aoide/gateway.cpp',
+                'src/library/aoide/libraryfeature.cpp',
+                'src/library/aoide/settings.cpp',
+                'src/library/aoide/subsystem.cpp',
+                'src/library/aoide/tag/hashtagcommentstagger.cpp',
+                'src/library/aoide/tag/multigenretagger.cpp',
+                'src/library/aoide/task/resolvetracksbyurltask.cpp',
+                'src/library/aoide/task/searchtrackstask.cpp',
+                'src/library/aoide/trackcollection.cpp',
+                'src/library/aoide/trackexporter.cpp',
+                'src/library/aoide/trackreplacementscheduler.cpp',
+                'src/library/aoide/tracktablemodel.cpp',
+                'src/library/aoide/util.cpp']
