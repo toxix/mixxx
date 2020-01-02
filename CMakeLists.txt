@@ -425,6 +425,8 @@ add_library(mixxx-lib STATIC EXCLUDE_FROM_ALL
   src/musicbrainz/musicbrainzclient.cpp
   src/musicbrainz/network.cpp
   src/musicbrainz/tagfetcher.cpp
+  src/network/jsonwebclient.cpp
+  src/network/jsonwebtask.cpp
   src/network/requestid.cpp
   src/network/requestreplymanager.cpp
   src/preferences/broadcastprofile.cpp

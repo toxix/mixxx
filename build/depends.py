@@ -1124,6 +1124,8 @@ class MixxxCore(Feature):
 
                    "src/library/trackloader.cpp",
 
+                   "src/network/jsonwebclient.cpp",
+                   "src/network/jsonwebtask.cpp",
                    "src/network/requestid.cpp",
                    "src/network/requestreplymanager.cpp",
 
