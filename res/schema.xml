@@ -481,4 +481,30 @@ METADATA
         );
     </sql>
   </revision>  
+  <revision version="31" min_compatible="3">
+    <description>
+      Add Columns for multi level crates.
+      parent_id - Contains the id of the parent create, on the root level this should be 0
+      level - Is the number of parents that you need to traverse untill you get the the root level
+      children_ids - Comma seperated list of all id's that are a child of this crate.
+      <!-- We need to do a recreation and copy as sqlite is not supporting updates of foreign keys -->
+    </description>
+    <sql>
+      ALTER TABLE `crates` RENAME TO `crates_old`;
+      CREATE TABLE `crates` (
+	`id`            INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+	`name`          VARCHAR(48) NOT NULL,
+	`count`         INTEGER DEFAULT 0,
+	`show`          BLOB DEFAULT 1,
+	`locked`        INTEGER DEFAULT 0,
+	`autodj_source` INTEGER DEFAULT 0,
+	`parent_id`     INTEGER NOT NULL DEFAULT 0,
+	`level`         INTEGER NOT NULL DEFAULT 0,
+	`children_ids`  TEXT DEFAULT NULL,
+	FOREIGN KEY(`parent_id`) REFERENCES crates(id)
+      );
+      INSERT INTO `crates` SELECT `id`,`name`,`count`,`show`,`locked`,`autodj_source`, 0, 0, NULL FROM `crates_old`;
+      DROP TABLE `crates_old`;
+    </sql>
+  </revision>
 </schema>

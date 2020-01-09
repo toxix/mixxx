@@ -23,6 +23,9 @@ const QString CRATETABLE_AUTODJ_SOURCE = "autodj_source";
 
 const QString CRATETRACKSTABLE_CRATEID = "crate_id";
 const QString CRATETRACKSTABLE_TRACKID = "track_id";
+const QString CRATETRACKSTABLE_PARENTID = "parent_id";
+const QString CRATETRACKSTABLE_CHILDRENIDS = "children_ids";
+const QString CRATETRACKSTABLE_LEVEL = "level";
 
 
 #endif // MIXXX_CRATESCHEMA_H
