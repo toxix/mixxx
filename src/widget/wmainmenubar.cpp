@@ -61,14 +61,14 @@ WMainMenuBar::WMainMenuBar(QWidget* pParent, UserSettingsPointer pConfig,
 
 void WMainMenuBar::initialize() {
     // FILE MENU
-    QMenu* pFileMenu = new QMenu(tr("&File"));
+    QMenu* pFileMenu = make_parented<QMenu>(tr("&File"));
 
     QString loadTrackText = tr("Load Track to Deck &%1");
     QString loadTrackStatusText = tr("Loads a track in deck %1");
     QString openText = tr("Open");
     for (unsigned int deck = 0; deck < kMaxLoadToDeckActions; ++deck) {
         QString playerLoadStatusText = loadTrackStatusText.arg(QString::number(deck + 1));
-        QAction* pFileLoadSongToPlayer = new QAction(
+        QAction* pFileLoadSongToPlayer = make_parented<QAction>(
             loadTrackText.arg(QString::number(deck + 1)), this);
 
         QString binding = m_pKbdConfig->getValue(
@@ -95,7 +95,7 @@ void WMainMenuBar::initialize() {
 
     QString quitTitle = tr("&Exit");
     QString quitText = tr("Quits Mixxx");
-    auto pFileQuit = new QAction(quitTitle, this);
+    auto pFileQuit = make_parented<QAction>(quitTitle, this);
     pFileQuit->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(ConfigKey("[KeyboardShortcuts]", "FileMenu_Quit"),
                                                   tr("Ctrl+q"))));
@@ -109,11 +109,11 @@ void WMainMenuBar::initialize() {
     addMenu(pFileMenu);
 
     // LIBRARY MENU
-    QMenu* pLibraryMenu = new QMenu(tr("&Library"));
+    QMenu* pLibraryMenu = make_parented<QMenu>(tr("&Library"));
 
     QString rescanTitle = tr("&Rescan Library");
     QString rescanText = tr("Rescans library folders for changes to tracks.");
-    auto pLibraryRescan = new QAction(rescanTitle, this);
+    auto pLibraryRescan = make_parented<QAction>(rescanTitle, this);
     pLibraryRescan->setStatusTip(rescanText);
     pLibraryRescan->setWhatsThis(buildWhatsThis(rescanTitle, rescanText));
     pLibraryRescan->setCheckable(false);
@@ -128,7 +128,7 @@ void WMainMenuBar::initialize() {
 
     QString createPlaylistTitle = tr("Create &New Playlist");
     QString createPlaylistText = tr("Create a new playlist");
-    auto pLibraryCreatePlaylist = new QAction(createPlaylistTitle, this);
+    auto pLibraryCreatePlaylist = make_parented<QAction>(createPlaylistTitle, this);
     pLibraryCreatePlaylist->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
                 ConfigKey("[KeyboardShortcuts]", "LibraryMenu_NewPlaylist"),
@@ -142,7 +142,7 @@ void WMainMenuBar::initialize() {
 
     QString createCrateTitle = tr("Create New &Crate");
     QString createCrateText = tr("Create a new crate");
-    auto pLibraryCreateCrate = new QAction(createCrateTitle, this);
+    auto pLibraryCreateCrate = make_parented<QAction>(createCrateTitle, this);
     pLibraryCreateCrate->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(ConfigKey("[KeyboardShortcuts]",
                                                   "LibraryMenu_NewCrate"),
@@ -162,7 +162,7 @@ void WMainMenuBar::initialize() {
     // Add an invisible suffix to the View item string so it doesn't string-equal "View" ,
     // and the magic menu items won't get injected.
     // https://bugs.launchpad.net/mixxx/+bug/1534292
-    QMenu* pViewMenu = new QMenu(tr("&View") + QStringLiteral("\u200C"));
+    QMenu* pViewMenu = make_parented<QMenu>(tr("&View") + QStringLiteral("\u200C"));
 #else
     QMenu* pViewMenu = new QMenu(tr("&View"));
 #endif
@@ -172,7 +172,7 @@ void WMainMenuBar::initialize() {
     QString showSkinSettingsTitle = tr("Show Skin Settings Menu");
     QString showSkinSettingsText = tr("Show the Skin Settings Menu of the currently selected Skin") +
             " " + mayNotBeSupported;
-    auto pViewShowSkinSettings = new QAction(showSkinSettingsTitle, this);
+    auto pViewShowSkinSettings = make_parented<QAction>(showSkinSettingsTitle, this);
     pViewShowSkinSettings->setCheckable(true);
     pViewShowSkinSettings->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
@@ -187,7 +187,7 @@ void WMainMenuBar::initialize() {
     QString showMicrophoneTitle = tr("Show Microphone Section");
     QString showMicrophoneText = tr("Show the microphone section of the Mixxx interface.") +
             " " + mayNotBeSupported;
-    auto pViewShowMicrophone = new QAction(showMicrophoneTitle, this);
+    auto pViewShowMicrophone = make_parented<QAction>(showMicrophoneTitle, this);
     pViewShowMicrophone->setCheckable(true);
     pViewShowMicrophone->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
@@ -202,7 +202,7 @@ void WMainMenuBar::initialize() {
     QString showVinylControlTitle = tr("Show Vinyl Control Section");
     QString showVinylControlText = tr("Show the vinyl control section of the Mixxx interface.") +
             " " + mayNotBeSupported;
-    auto pViewVinylControl = new QAction(showVinylControlTitle, this);
+    auto pViewVinylControl = make_parented<QAction>(showVinylControlTitle, this);
     pViewVinylControl->setCheckable(true);
     pViewVinylControl->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
@@ -217,7 +217,7 @@ void WMainMenuBar::initialize() {
     QString showPreviewDeckTitle = tr("Show Preview Deck");
     QString showPreviewDeckText = tr("Show the preview deck in the Mixxx interface.") +
             " " + mayNotBeSupported;
-    auto pViewShowPreviewDeck = new QAction(showPreviewDeckTitle, this);
+    auto pViewShowPreviewDeck = make_parented<QAction>(showPreviewDeckTitle, this);
     pViewShowPreviewDeck->setCheckable(true);
     pViewShowPreviewDeck->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
@@ -232,7 +232,7 @@ void WMainMenuBar::initialize() {
     QString showCoverArtTitle = tr("Show Cover Art");
     QString showCoverArtText = tr("Show cover art in the Mixxx interface.") +
             " " + mayNotBeSupported;
-    auto pViewShowCoverArt = new QAction(showCoverArtTitle, this);
+    auto pViewShowCoverArt = make_parented<QAction>(showCoverArtTitle, this);
     pViewShowCoverArt->setCheckable(true);
     pViewShowCoverArt->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
@@ -247,7 +247,7 @@ void WMainMenuBar::initialize() {
     QString maximizeLibraryTitle = tr("Maximize Library");
     QString maximizeLibraryText = tr("Maximize the track library to take up all the available screen space.") +
             " " + mayNotBeSupported;
-    auto pViewMaximizeLibrary = new QAction(maximizeLibraryTitle, this);
+    auto pViewMaximizeLibrary = make_parented<QAction>(maximizeLibraryTitle, this);
     pViewMaximizeLibrary->setCheckable(true);
     pViewMaximizeLibrary->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
@@ -264,7 +264,7 @@ void WMainMenuBar::initialize() {
 
     QString fullScreenTitle = tr("&Full Screen");
     QString fullScreenText = tr("Display Mixxx using the full screen");
-    auto pViewFullScreen = new QAction(fullScreenTitle, this);
+    auto pViewFullScreen = make_parented<QAction>(fullScreenTitle, this);
     pViewFullScreen->setShortcut(QKeySequence(QKeySequence::FullScreen));
     pViewFullScreen->setShortcutContext(Qt::ApplicationShortcut);
     pViewFullScreen->setCheckable(true);
@@ -280,16 +280,16 @@ void WMainMenuBar::initialize() {
     addMenu(pViewMenu);
 
     // OPTIONS MENU
-    QMenu* pOptionsMenu = new QMenu(tr("&Options"));
+    QMenu* pOptionsMenu = make_parented<QMenu>(tr("&Options"));
 
 #ifdef __VINYLCONTROL__
-    QMenu* pVinylControlMenu = new QMenu(tr("&Vinyl Control"));
+    QMenu* pVinylControlMenu = make_parented<QMenu>(tr("&Vinyl Control"));
     QString vinylControlText = tr(
             "Use timecoded vinyls on external turntables to control Mixxx");
 
     for (int i = 0; i < kMaximumVinylControlInputs; ++i) {
         QString vinylControlTitle = tr("Enable Vinyl Control &%1").arg(i + 1);
-        auto vc_checkbox = new QAction(vinylControlTitle, this);
+        auto vc_checkbox = make_parented<QAction>(vinylControlTitle, this);
         m_vinylControlEnabledActions.push_back(vc_checkbox);
 
         QString binding = m_pKbdConfig->getValue(
@@ -321,7 +321,7 @@ void WMainMenuBar::initialize() {
 
     QString recordTitle = tr("&Record Mix");
     QString recordText = tr("Record your mix to a file");
-    auto pOptionsRecord = new QAction(recordTitle, this);
+    auto pOptionsRecord = make_parented<QAction>(recordTitle, this);
     pOptionsRecord->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
                 ConfigKey("[KeyboardShortcuts]", "OptionsMenu_RecordMix"),
@@ -339,7 +339,7 @@ void WMainMenuBar::initialize() {
 #ifdef __BROADCAST__
     QString broadcastingTitle = tr("Enable Live &Broadcasting");
     QString broadcastingText = tr("Stream your mixes to a shoutcast or icecast server");
-    auto pOptionsBroadcasting = new QAction(broadcastingTitle, this);
+    auto pOptionsBroadcasting = make_parented<QAction>(broadcastingTitle, this);
     pOptionsBroadcasting->setShortcut(
             QKeySequence(m_pKbdConfig->getValue(
                     ConfigKey("[KeyboardShortcuts]",
@@ -361,7 +361,7 @@ void WMainMenuBar::initialize() {
     m_pConfigTrainingmodeEnabled = new ControlObject(ConfigKey("[TrainingMode]", "enabled"));
     QString TrainingmodeTitle = tr("Enable Training Mode");
     QString TrainingmodeText = tr("In training mode the play counter will not be increased");
-    auto pOptionsTrainingmode = new QAction(TrainingmodeTitle, this);
+    auto pOptionsTrainingmode = make_parented<QAction>(TrainingmodeTitle, this);
     pOptionsTrainingmode->setCheckable(true);
     pOptionsTrainingmode->setChecked(false);
     pOptionsTrainingmode->setStatusTip(TrainingmodeText);
@@ -375,7 +375,7 @@ void WMainMenuBar::initialize() {
     QString keyboardShortcutText = tr("Toggles keyboard shortcuts on or off");
     bool keyboardShortcutsEnabled = m_pConfig->getValueString(
         ConfigKey("[Keyboard]", "Enabled")) == "1";
-    auto pOptionsKeyboard = new QAction(keyboardShortcutTitle, this);
+    auto pOptionsKeyboard = make_parented<QAction>(keyboardShortcutTitle, this);
     pOptionsKeyboard->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
                 ConfigKey("[KeyboardShortcuts]", "OptionsMenu_EnableShortcuts"),
@@ -394,7 +394,7 @@ void WMainMenuBar::initialize() {
 
     QString preferencesTitle = tr("&Preferences");
     QString preferencesText = tr("Change Mixxx settings (e.g. playback, MIDI, controls)");
-    auto pOptionsPreferences = new QAction(preferencesTitle, this);
+    auto pOptionsPreferences = make_parented<QAction>(preferencesTitle, this);
     pOptionsPreferences->setShortcut(
         QKeySequence(m_pKbdConfig->getValue(
                 ConfigKey("[KeyboardShortcuts]", "OptionsMenu_Preferences"),
@@ -411,11 +411,11 @@ void WMainMenuBar::initialize() {
 
     // DEVELOPER MENU
     if (CmdlineArgs::Instance().getDeveloper()) {
-        QMenu* pDeveloperMenu = new QMenu(tr("&Developer"));
+        QMenu* pDeveloperMenu = make_parented<QMenu>(tr("&Developer"));
 
         QString reloadSkinTitle = tr("&Reload Skin");
         QString reloadSkinText = tr("Reload the skin");
-        auto pDeveloperReloadSkin = new QAction(reloadSkinTitle, this);
+        auto pDeveloperReloadSkin = make_parented<QAction>(reloadSkinTitle, this);
         pDeveloperReloadSkin->setShortcut(
             QKeySequence(m_pKbdConfig->getValue(
                     ConfigKey("[KeyboardShortcuts]", "OptionsMenu_ReloadSkin"),
@@ -429,7 +429,7 @@ void WMainMenuBar::initialize() {
 
         QString developerToolsTitle = tr("Developer &Tools");
         QString developerToolsText = tr("Opens the developer tools dialog");
-        auto pDeveloperTools = new QAction(developerToolsTitle, this);
+        auto pDeveloperTools = make_parented<QAction>(developerToolsTitle, this);
         pDeveloperTools->setShortcut(
             QKeySequence(m_pKbdConfig->getValue(
                     ConfigKey("[KeyboardShortcuts]", "OptionsMenu_DeveloperTools"),
@@ -448,7 +448,7 @@ void WMainMenuBar::initialize() {
         QString enableExperimentTitle = tr("Stats: &Experiment Bucket");
         QString enableExperimentToolsText = tr(
             "Enables experiment mode. Collects stats in the EXPERIMENT tracking bucket.");
-        auto pDeveloperStatsExperiment = new QAction(enableExperimentTitle, this);
+        auto pDeveloperStatsExperiment = make_parented<QAction>(enableExperimentTitle, this);
         pDeveloperStatsExperiment->setShortcut(
             QKeySequence(m_pKbdConfig->getValue(
                     ConfigKey("[KeyboardShortcuts]", "OptionsMenu_DeveloperStatsExperiment"),
@@ -466,7 +466,7 @@ void WMainMenuBar::initialize() {
         QString enableBaseTitle = tr("Stats: &Base Bucket");
         QString enableBaseToolsText = tr(
             "Enables base mode. Collects stats in the BASE tracking bucket.");
-        auto pDeveloperStatsBase = new QAction(enableBaseTitle, this);
+        auto pDeveloperStatsBase = make_parented<QAction>(enableBaseTitle, this);
         pDeveloperStatsBase->setShortcut(
             QKeySequence(m_pKbdConfig->getValue(
                     ConfigKey("[KeyboardShortcuts]", "OptionsMenu_DeveloperStatsBase"),
@@ -486,7 +486,7 @@ void WMainMenuBar::initialize() {
         QString scriptDebuggerText = tr("Enables the debugger during skin parsing");
         bool scriptDebuggerEnabled = m_pConfig->getValueString(
             ConfigKey("[ScriptDebugger]", "Enabled")) == "1";
-        auto pDeveloperDebugger = new QAction(scriptDebuggerTitle, this);
+        auto pDeveloperDebugger = make_parented<QAction>(scriptDebuggerTitle, this);
         pDeveloperDebugger->setShortcut(
             QKeySequence(m_pKbdConfig->getValue(
                     ConfigKey("[KeyboardShortcuts]", "DeveloperMenu_EnableDebugger"),
@@ -506,13 +506,13 @@ void WMainMenuBar::initialize() {
     addSeparator();
 
     // HELP MENU
-    QMenu* pHelpMenu = new QMenu(tr("&Help"), this);
+    QMenu* pHelpMenu = make_parented<QMenu>(tr("&Help"), this);
 
     QString externalLinkSuffix = " =>";
 
     QString supportTitle = tr("&Community Support") + externalLinkSuffix;
     QString supportText = tr("Get help with Mixxx");
-    auto pHelpSupport = new QAction(supportTitle, this);
+    auto pHelpSupport = make_parented<QAction>(supportTitle, this);
     pHelpSupport->setStatusTip(supportText);
     pHelpSupport->setWhatsThis(buildWhatsThis(supportTitle, supportText));
     connect(pHelpSupport, &QAction::triggered,
@@ -543,7 +543,7 @@ void WMainMenuBar::initialize() {
 
     QString manualTitle = tr("&User Manual") + externalLinkSuffix;
     QString manualText = tr("Read the Mixxx user manual.");
-    auto pHelpManual = new QAction(manualTitle, this);
+    auto pHelpManual = make_parented<QAction>(manualTitle, this);
     pHelpManual->setStatusTip(manualText);
     pHelpManual->setWhatsThis(buildWhatsThis(manualTitle, manualText));
     connect(pHelpManual, &QAction::triggered,
@@ -552,7 +552,7 @@ void WMainMenuBar::initialize() {
 
     QString shortcutsTitle = tr("&Keyboard Shortcuts") + externalLinkSuffix;
     QString shortcutsText = tr("Speed up your workflow with keyboard shortcuts.");
-    auto pHelpShortcuts = new QAction(shortcutsTitle, this);
+    auto pHelpShortcuts = make_parented<QAction>(shortcutsTitle, this);
     pHelpShortcuts->setStatusTip(shortcutsText);
     pHelpShortcuts->setWhatsThis(buildWhatsThis(shortcutsTitle, shortcutsText));
     connect(pHelpShortcuts, &QAction::triggered,
@@ -561,7 +561,7 @@ void WMainMenuBar::initialize() {
 
     QString feedbackTitle = tr("Send Us &Feedback") + externalLinkSuffix;
     QString feedbackText = tr("Send feedback to the Mixxx team.");
-    auto pHelpFeedback = new QAction(feedbackTitle, this);
+    auto pHelpFeedback = make_parented<QAction>(feedbackTitle, this);
     pHelpFeedback->setStatusTip(feedbackText);
     pHelpFeedback->setWhatsThis(buildWhatsThis(feedbackTitle, feedbackText));
     connect(pHelpFeedback, &QAction::triggered,
@@ -570,7 +570,7 @@ void WMainMenuBar::initialize() {
 
     QString translateTitle = tr("&Translate This Application") + externalLinkSuffix;
     QString translateText = tr("Help translate this application into your language.");
-    auto pHelpTranslation = new QAction(translateTitle, this);
+    auto pHelpTranslation = make_parented<QAction>(translateTitle, this);
     pHelpTranslation->setStatusTip(translateText);
     pHelpTranslation->setWhatsThis(buildWhatsThis(translateTitle, translateText));
     connect(pHelpTranslation, &QAction::triggered,
@@ -581,7 +581,7 @@ void WMainMenuBar::initialize() {
 
     QString aboutTitle = tr("&About");
     QString aboutText = tr("About the application");
-    auto pHelpAboutApp = new QAction(aboutTitle, this);
+    auto pHelpAboutApp = make_parented<QAction>(aboutTitle, this);
     pHelpAboutApp->setStatusTip(aboutText);
     pHelpAboutApp->setWhatsThis(buildWhatsThis(aboutTitle, aboutText));
     pHelpAboutApp->setMenuRole(QAction::AboutRole);
