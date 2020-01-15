@@ -81,7 +81,7 @@ class WMainMenuBar : public QMenuBar {
     void slotDeveloperStatsBase(bool enable);
     void slotDeveloperDebugger(bool toggle);
     void slotVisitUrl(const QString& url);
-    void toggleTrainingmode(bool toggle);
+    void togglePracticemode(bool toggle);
 
   private:
     void initialize();
@@ -89,7 +89,7 @@ class WMainMenuBar : public QMenuBar {
 
     UserSettingsPointer m_pConfig;
     ConfigObject<ConfigValueKbd>* m_pKbdConfig;
-    std::unique_ptr<ControlObject> m_pConfigTrainingmodeEnabled;
+    std::unique_ptr<ControlObject> m_pConfigPracticemodeEnabled;
     QList<QAction*> m_loadToDeckActions;
     QList<QAction*> m_vinylControlEnabledActions;
 };
