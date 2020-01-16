@@ -61,14 +61,14 @@ WMainMenuBar::WMainMenuBar(QWidget* pParent, UserSettingsPointer pConfig,
 
 void WMainMenuBar::initialize() {
     // FILE MENU
-    QMenu* pFileMenu = make_parented<QMenu>(tr("&File"));
+    auto pFileMenu = make_parented<QMenu>(tr("&File"));
 
     QString loadTrackText = tr("Load Track to Deck &%1");
     QString loadTrackStatusText = tr("Loads a track in deck %1");
     QString openText = tr("Open");
     for (unsigned int deck = 0; deck < kMaxLoadToDeckActions; ++deck) {
         QString playerLoadStatusText = loadTrackStatusText.arg(QString::number(deck + 1));
-        QAction* pFileLoadSongToPlayer = make_parented<QAction>(
+        auto pFileLoadSongToPlayer = make_parented<QAction>(
             loadTrackText.arg(QString::number(deck + 1)), this);
 
         QString binding = m_pKbdConfig->getValue(
@@ -109,7 +109,7 @@ void WMainMenuBar::initialize() {
     addMenu(pFileMenu);
 
     // LIBRARY MENU
-    QMenu* pLibraryMenu = make_parented<QMenu>(tr("&Library"));
+    auto pLibraryMenu = make_parented<QMenu>(tr("&Library"));
 
     QString rescanTitle = tr("&Rescan Library");
     QString rescanText = tr("Rescans library folders for changes to tracks.");
@@ -162,7 +162,7 @@ void WMainMenuBar::initialize() {
     // Add an invisible suffix to the View item string so it doesn't string-equal "View" ,
     // and the magic menu items won't get injected.
     // https://bugs.launchpad.net/mixxx/+bug/1534292
-    QMenu* pViewMenu = make_parented<QMenu>(tr("&View") + QStringLiteral("\u200C"));
+    auto pViewMenu = make_parented<QMenu>(tr("&View") + QStringLiteral("\u200C"));
 #else
     QMenu* pViewMenu = new QMenu(tr("&View"));
 #endif
@@ -280,10 +280,10 @@ void WMainMenuBar::initialize() {
     addMenu(pViewMenu);
 
     // OPTIONS MENU
-    QMenu* pOptionsMenu = make_parented<QMenu>(tr("&Options"));
+    auto pOptionsMenu = make_parented<QMenu>(tr("&Options"));
 
 #ifdef __VINYLCONTROL__
-    QMenu* pVinylControlMenu = make_parented<QMenu>(tr("&Vinyl Control"));
+    auto pVinylControlMenu = make_parented<QMenu>(tr("&Vinyl Control"));
     QString vinylControlText = tr(
             "Use timecoded vinyls on external turntables to control Mixxx");
 
@@ -411,7 +411,7 @@ void WMainMenuBar::initialize() {
 
     // DEVELOPER MENU
     if (CmdlineArgs::Instance().getDeveloper()) {
-        QMenu* pDeveloperMenu = make_parented<QMenu>(tr("&Developer"));
+        auto pDeveloperMenu = make_parented<QMenu>(tr("&Developer"));
 
         QString reloadSkinTitle = tr("&Reload Skin");
         QString reloadSkinText = tr("Reload the skin");
@@ -506,7 +506,7 @@ void WMainMenuBar::initialize() {
     addSeparator();
 
     // HELP MENU
-    QMenu* pHelpMenu = make_parented<QMenu>(tr("&Help"), this);
+    auto pHelpMenu = make_parented<QMenu>(tr("&Help"), this);
 
     QString externalLinkSuffix = " =>";
 
