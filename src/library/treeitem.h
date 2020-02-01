@@ -88,6 +88,13 @@ class TreeItem final {
         return m_label;
     }
 
+    void setToolTip(const QString& toolTip) {
+        m_toolTip = toolTip;
+    }
+    const QString& getToolTip() const {
+        return m_toolTip;
+    }
+
     void setData(const QVariant& data) {
         m_data = data;
     }
@@ -118,6 +125,7 @@ class TreeItem final {
     QList<TreeItem*> m_children; // owned child items
 
     QString m_label;
+    QString m_toolTip;
     QVariant m_data;
     QIcon m_icon;
     bool m_bold;
